@@ -1,18 +1,12 @@
 module.exports = ({ env }) => ({
-  host: env("HOST", "0.0.0.0"),
-  port: env.int("PORT", 1337),
+  url: env("PUBLIC_URL", "https://skillang.com"),
+  proxy: true,
   app: {
     keys: env.array("APP_KEYS"),
   },
-  server: {
-    https: env.bool("USE_HTTPS", false)
-      ? {
-          key: "/etc/letsencrypt/live/skillang.com/privkey.pem",
-          cert: "/etc/letsencrypt/live/skillang.com/fullchain.pem",
-        }
-      : undefined,
-  },
-  webhooks: {
-    populateRelations: env.bool("WEBHOOKS_POPULATE_RELATIONS", false),
+  admin: {
+    auth: {
+      secret: env("ADMIN_JWT_SECRET"),
+    },
   },
 });
